@@ -3,10 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-// import { HeroesStore } from '../src/stores/HeroesStore'
 import { Provider } from 'mobx-react'
 
-// let heroesStore = new HeroesStore()
 let stores = {  }
 
 ReactDOM.render(
