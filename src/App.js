@@ -1,24 +1,18 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
 import './App.css';
-import { observer, inject } from 'mobx-react'
-import Heroes from './components/Heroes';
+import NavBar from './components/NavBar'
 
-@inject('heroesStore')
-@observer
 class App extends Component {
-
-  componentDidMount() {
-    this.props.heroesStore.fetchHeroes()
-  }
 
   render() {
     return (
-      <Router>
-        <div>
-          <Route exact path='/' render={() => <Heroes />} />
-        </div>
-      </Router>
+      <div>
+        <NavBar/>
+        <Route exact path='/clients'/>
+        <Route exact path='/actions'/>
+        <Route exact path='/analytics'/>
+      </div>
     )
   }
 }
