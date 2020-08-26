@@ -3,8 +3,9 @@ const path = require('path')
 const app = express()
 const bodyParser = require('body-parser')
 const api = require('./server/routes/api')
+const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost/bankDB', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost/clientDB', { useNewUrlParser: true, useUnifiedTopology: true })
 
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*')

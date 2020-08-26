@@ -4,14 +4,15 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'mobx-react'
+import { CRMStore } from './stores/CRMStore'
 
-let stores = {  }
+let crmStore = new CRMStore()
+let stores = { crmStore }
 
 ReactDOM.render(
   <Provider {...stores}>
-    <App />
+      <App />
   </Provider>
-  , document.getElementById('root')
-);
+  , document.getElementById('root'));
 
 serviceWorker.unregister();

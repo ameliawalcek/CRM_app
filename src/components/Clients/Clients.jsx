@@ -1,13 +1,13 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react'
 
-const Actions = inject("")(observer((props) => {
+const Clients = inject("crmStore")(observer((props) => {
 
     return (
         <div>
-            actions
+            Clients
         </div>
     )
 }))
 
-export default Actions;
+export default Clients;

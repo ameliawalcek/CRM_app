@@ -1,13 +1,13 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react'
 
-const Clients = inject("")(observer((props) => {
+const Analytics = inject("crmStore")(observer((props) => {
 
     return (
         <div>
-            Clients
+            Analytics
         </div>
     )
 }))
 
-export default Clients;
+export default Analytics;
