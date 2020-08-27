@@ -2,17 +2,17 @@ USE sql_crm;
 
 CREATE TABLE owner (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(40)
+    owner VARCHAR(40)
 );
 
 CREATE TABLE country (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(40)
+    country VARCHAR(40)
 );
 
-CREATE TABLE email_Type(
+CREATE TABLE email_type(
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(1)
+    email_type VARCHAR(1)
 );
 
 CREATE TABLE client(
@@ -20,13 +20,16 @@ CREATE TABLE client(
     name VARCHAR(40),
     email VARCHAR(40),
     sold BOOLEAN,
-    firstContact VARCHAR(40),
-    emailType INT,
-    owner INT,
-    country INT,
+    date VARCHAR(40),
+    email_type_id INT,
+    owner_id INT,
+    country_id INT,
 
-    FOREIGN KEY(emailType) REFERENCES email_Type(id),
-    FOREIGN KEY(owner) REFERENCES owner(id),
-    FOREIGN KEY(country) REFERENCES country(id)
+    FOREIGN KEY(email_type_id) REFERENCES email_type(id),
+    FOREIGN KEY(owner_id) REFERENCES owner(id),
+    FOREIGN KEY(country_id) REFERENCES country(id)
 );
--- DROP TABLE client
+-- DROP TABLE client;
+-- DROP TABLE country;
+-- DROP TABLE email_Type;
+-- DROP TABLE owner;
