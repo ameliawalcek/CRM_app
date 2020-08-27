@@ -1,11 +1,12 @@
 const Sequelize = require('sequelize')
 const data = require('./data')
+const countries = require('./countries')
 const sequelize = new Sequelize('mysql://root:@localhost/sql_crm')
 
-let country = data.map(d => d.country)
-country = country.filter(function (elem, index, self) {
-    return index === self.indexOf(elem)
-})
+// let country = data.map(d => d.country)
+// country = country.filter(function (elem, index, self) {
+//     return index === self.indexOf(elem)
+// })
 
 let owner = data.map(d => d.owner)
 owner = owner.filter(function (elem, index, self) {
@@ -37,9 +38,10 @@ const addClient = async (client) => {
     let country = await findByID('country', 'country', client.country)
 
     let date = new Date (client.firstContact).toLocaleDateString()
+    let nameSplit = client.name.split(' ')
 
     let query =`INSERT INTO client
-    VALUES (null, '${client.name}', '${client.email}', ${client.sold}, '${date}', ${emailType}, ${owner}, ${country})`
+    VALUES (null, '${nameSplit[1]}', '${nameSplit[0]}', '${client.email}', ${client.sold}, '${date}', ${emailType}, ${owner}, ${country})`
     let result = await sequelize.query(query)
     return result[0]
 }
@@ -48,7 +50,7 @@ const addClient = async (client) => {
 //     addValue('email_type', t)
 // })
 
-// country.forEach(t =>{
+// countries.forEach(t =>{
 //     addValue('country', t)
 // })
 
@@ -56,6 +58,6 @@ const addClient = async (client) => {
 //     addValue('owner', t)
 // })
 
-// data.forEach(d => {
-//     addClient(d)
-// })
+data.forEach(d => {
+    addClient(d)
+})

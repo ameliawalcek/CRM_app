@@ -4,21 +4,40 @@ import "mobx-react-lite/batchingForReactDom"
 
 export class CRMStore {
     @observable clients = []
-    @observable sumsCountry = []
-    @observable sumsOwner = []
+    @observable countrySums = []
+    @observable ownerSums = []
+    @observable owners = []
+    @observable countries = []
+    @observable popularCountry = []
 
-    @action async getClients(){
+    @action async getClients() {
         let clients = await axios.get("http://localhost:4200/clients")
         this.clients = clients.data
     }
 
-    @action async getSums(){
-        let sums = await axios.get("http://localhost:4200/clients/sums")
-        this.sumsCountry = sums.data.country
-        this.sumsOwner = sums.data.owner
+    @action async getSums() {
+        let categorySums = await axios.get("http://localhost:4200/clients/sums")
+        this.ownerSums = categorySums.data[1]
+        this.countrySums = categorySums.data[0]
     }
 
-    @computed get clientTotal(){
+    @action async getCountries() {
+        let countries = await axios.get("http://localhost:4200/countries")
+        this.countries = countries.data
+    }
+
+    @action async getOwners() {
+        let owners = await axios.get("http://localhost:4200/owners")
+        this.owners = owners.data
+    }
+    
+    @action async getPopularCountry() {
+        await this.getSums()
+        this.popularCountry = this.countrySums.slice().sort((a, b) => b.count - a.count)[0]
+    }
+
+    @computed get clientTotal() {
         return this.clients.length
     }
+
 }

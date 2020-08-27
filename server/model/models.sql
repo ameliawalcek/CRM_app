@@ -17,7 +17,8 @@ CREATE TABLE email_type(
 
 CREATE TABLE client(
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    name VARCHAR(40),
+    last VARCHAR(40),
+    first VARCHAR(40),
     email VARCHAR(40),
     sold BOOLEAN,
     date VARCHAR(40),

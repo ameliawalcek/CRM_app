@@ -1,12 +1,17 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react'
+import Client from './Client';
 
 const Clients = inject("crmStore")(observer((props) => {
 
     return (
-        <div>
-            Clients
-        </div>
+        <table>
+            <tbody>
+                {props.crmStore.clients.map(client => {
+                    return <Client client={client} key={Math.random()} />
+                })}
+            </tbody>
+        </table>
     )
 }))
 

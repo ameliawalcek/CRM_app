@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import NavBar from './components/NavBar'
 import Analytics from './components/Analytics/Analytics';
@@ -13,7 +13,10 @@ const App = inject("crmStore")(observer((props) => {
   useEffect(() => {
     props.crmStore.getClients()
     props.crmStore.getSums()
-  }, [])
+    props.crmStore.getCountries()
+    props.crmStore.getOwners()
+    props.crmStore.getPopularCountry()
+  }, [props.crmStore])
 
   return (
     <div>
