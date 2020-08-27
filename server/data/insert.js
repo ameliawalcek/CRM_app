@@ -23,17 +23,18 @@ const addValue = async function (table, type) {
     return result[0]
 }
 
-const findByID = async (table, value) => {
-    let query = `SELECT id FROM ${table} WHERE name = "${value}"`
+const findByID = async (table, name, value) => {
+    let query = `SELECT id FROM ${table} WHERE ${name} = "${value}"`
     let results = await sequelize.query(query)
 
     return results[0][0].id
 }
 
 const addClient = async (client) => {
-    let emailType = client.emailType !== null ? await findByID('email_type', client.emailType) : null
-    let owner = await findByID('owner', client.owner)
-    let country = await findByID('country', client.country)
+    console.log(client)
+    let emailType = client.emailType !== null ? await findByID('email_type', 'email_type', client.emailType) : null
+    let owner = await findByID('owner', 'owner', client.owner)
+    let country = await findByID('country', 'country', client.country)
 
     let date = new Date (client.firstContact).toLocaleDateString()
 
