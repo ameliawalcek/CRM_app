@@ -16,10 +16,11 @@ const App = inject("crmStore")(observer((props) => {
     props.crmStore.getCountries()
     props.crmStore.getOwners()
     props.crmStore.getPopularCountry()
+    props.crmStore.getEmailTypes()
   }, [props.crmStore])
 
   return (
-    <div>
+    <div className='main-container'>
       <Router>
         <NavBar />
         <Route exact path='/' render={() => <Landing />} />

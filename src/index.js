@@ -5,9 +5,11 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'mobx-react'
 import { CRMStore } from './stores/CRMStore'
+import { InputStore } from './stores/InputStore';
 
 let crmStore = new CRMStore()
-let stores = { crmStore }
+let inputStore = new InputStore()
+let stores = { crmStore, inputStore }
 
 ReactDOM.render(
   <Provider {...stores}>
