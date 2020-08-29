@@ -24,4 +24,10 @@ export class InputStore {
     @action handleCheckBox = () => {
         this.sold = !this.sold
     }
+
+    @action renderTableSelect = (data) => {
+        let object = data.reduce(
+            (obj, item) => Object.assign(obj, { [item.id]: item.value }), {})
+        return object
+    }
 }

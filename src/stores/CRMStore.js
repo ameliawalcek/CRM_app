@@ -53,8 +53,10 @@ export class CRMStore {
         this.getClients()
     }
 
-    @action async deleteClient() {
-
+    @action async deleteClient(client, resolve) {
+        await axios.delete(`http://localhost:4200/client/${client.id}`)
+        this.getClients()
+        resolve()
     }
 
     @computed get clientTotal() {
