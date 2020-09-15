@@ -13,7 +13,16 @@ export class CRMStore {
 
     @action async getClients() {
         let clients = await axios.get("http://localhost:4200/clients")
-        this.clients = clients.data
+        clients.data.map(client => {
+            if (client.sold === 1) {
+                client.sold = '✓'
+                this.clients.push(client)
+            }
+            else {
+                client.sold = '-'
+                this.clients.push(client)
+            }
+        })
     }
 
     @action async getSums() {
@@ -55,8 +64,7 @@ export class CRMStore {
 
     @action async deleteClient(client, resolve) {
         await axios.delete(`http://localhost:4200/client/${client.id}`)
-        this.getClients()
-        resolve()
+        this.clients = this.clients.filter(c => c._id === client.id)
     }
 
     @computed get clientTotal() {

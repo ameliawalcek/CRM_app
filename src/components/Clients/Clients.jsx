@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { forwardRef } from 'react';
 import Grid from '@material-ui/core/Grid'
 import { observer, inject } from 'mobx-react'
@@ -40,24 +40,28 @@ const tableIcons = {
     ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
 }
 
-// function validateEmail(email) {
-//     const re = /^((?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]))$/;
-//     return re.test(String(email).toLowerCase());
-// }
-
 const Clients = inject("crmStore", "inputStore")(observer((props) => {
-    let {renderTableSelect} = props.inputStore
+    let { renderTableSelect } = props.inputStore
+    let { countries, owners, emailTypes, clients } = props.crmStore
+
+    let country = renderTableSelect(countries)
+    let owner = renderTableSelect(owners)
+    let emailType = renderTableSelect(emailTypes)
+
+    useEffect(() => {
+        props.crmStore.getClients()
+    }, [clients])
 
     let columns = [
         { title: "id", field: "id", hidden: true },
-        { title: "First name", field: "first" },
-        { title: "Last name", field: "last" },
-        { title: "Country", field: "country", lookup: renderTableSelect(props.crmStore.countries)},
+        { title: "First", field: "first" },
+        { title: "Last", field: "last" },
+        { title: "Country", field: "country_id", lookup: country },
         { title: "Email", field: "email" },
         { title: "Sold", field: "sold" },
-        { title: "Employee", field: "owner" , lookup: renderTableSelect(props.crmStore.owners) },
+        { title: "Employee", field: "owner_id", lookup: owner },
         { title: "Date", field: "date" },
-        { title: "Email Type", field: "email_type" , lookup: renderTableSelect(props.crmStore.emailTypes)},
+        { title: "Email Type", field: "email_type_id", lookup: emailType },
     ]
 
 
@@ -102,34 +106,23 @@ const Clients = inject("crmStore", "inputStore")(observer((props) => {
 
     return (
         <div className="client-table">
-                <Grid>
-                    {/* <div>
-                        {iserror &&
-                            <Alert severity="error">
-                                {errorMessages.map((msg, i) => {
-                                    return <div key={i}>{msg}</div>
-                                })}
-                            </Alert>
-                        }
-                    </div> */}
-                    <MaterialTable
-                        title="User data from remote source"
-                        columns={columns}
-                        data={props.crmStore.clients}
-                        options={{
+            <Grid>
+                <MaterialTable
+                    title=""
+                    columns={columns}
+                    data={clients}
 
-                        }}
-                        icons={tableIcons}
-                        editable={{
-                            onRowUpdate: (newData, oldData) => {
+                    icons={tableIcons}
+                    editable={{
+                        onRowUpdate: (newData, oldData) => {
 
-                            },
-                            onRowDelete: (oldData) =>
-                                new Promise((resolve) => {
-                                    props.crmStore.deleteClient(oldData, resolve)
-                                }),
-                        }}
-                    />
+                        },
+                        onRowDelete: (oldData) =>
+                            new Promise((resolve) => {
+                                props.crmStore.deleteClient(oldData, resolve)
+                            }),
+                    }}
+                />
 
             </Grid>
         </div>

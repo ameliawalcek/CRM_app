@@ -1,9 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom'
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import { Link, useLocation } from 'react-router-dom'
+import { Paper, Tabs, Tab } from '@material-ui/core';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import AddIcon from '@material-ui/icons/Add';
@@ -19,14 +17,16 @@ const useStyles = makeStyles({
 
 export default function IconLabelTabs() {
     const classes = useStyles();
-    const [value, setValue] = React.useState(0);
+    const paths = { '/clients': 0, '/analytics': 1, '/actions': 2 }
+    const location = useLocation()
+    const [value, setValue] = React.useState(paths[location.pathname]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
     return (
-        <Paper square style={{zIndex: 10, position: "fixed", top:"0", width:"100%"}} className={classes.root}>
+        <Paper square style={{ zIndex: 10, position: "fixed", top: "0", width: "100%" }} className={classes.root}>
             <Tabs
                 TabIndicatorProps={{
                     style: {

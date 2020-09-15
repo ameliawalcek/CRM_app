@@ -4,8 +4,6 @@ import OwnerBar from './OwnerBar'
 import CountryPie from './CountryPie'
 
 const Charts = inject("crmStore")(observer((props) => {
-    console.log('CHARTS LOADING')
-
     return (
         <div>
         <div style={{height: 400}}>

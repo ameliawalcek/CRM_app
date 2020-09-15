@@ -20,7 +20,7 @@ sqlConnection.connect((err) => {
 router.get('/clients', (req, res) => {
     sqlConnection.query(`
         SELECT c.id, c.last, c.first, c.email, c.date, c.sold, 
-            country.country, owner.owner, email_type.email_type
+            c.country_id, c.owner_id, c.email_type_id
         FROM client AS c
             INNER JOIN country ON c.country_id = country.id
             INNER JOIN owner ON c.owner_id = owner.id

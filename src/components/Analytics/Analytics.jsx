@@ -4,7 +4,6 @@ import Charts from './Charts';
 import TopIcons from './TopIcons';
 
 const Analytics = inject("crmStore")(observer((props) => {
-    console.log('ANALYTICS LOADING')
     return (
         <>
             <TopIcons/>
